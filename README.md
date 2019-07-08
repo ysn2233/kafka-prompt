@@ -15,6 +15,9 @@ make
 The execuatable binary is located as ./bin/kaprompt
 
 ## Feature
+Provide auto-comppletion for kafka console commands and their optional arguments.
+
+### Built-on existing kafka-client
 The auto-completion of kafka client command is predefined so make sure those client executable(eg. kafka-topic, kafka-console-consumer) have alreadly in your PATH. Kafka-prompt also supports any command ends with ".sh".
 
 ### Memorize servers
