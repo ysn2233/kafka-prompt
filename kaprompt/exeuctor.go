@@ -30,8 +30,20 @@ func (es *ExecutorSession) Executor(cmd string) {
 		fmt.Println("Bye-bye~!")
 		os.Exit(0)
 		return
+	} else if sp := strings.Fields(cmd); sp[0] == "cluster" {
+		if len(sp) < 2 {
+			fmt.Println("Get connected kafka servers\nUsage: cluster bootstrap/broker/zookeeper")
+		} else {
+			switch sp[1] {
+			case "bootstrap":
+				fmt.Println(es.BsServer)
+			case "broker":
+				fmt.Println(es.BkList)
+			case "zookeeper":
+				fmt.Println(es.Zookeeper)
+			}
+		}
 	} else {
-		fmt.Println(es)
 		args := regexp.MustCompile("\\s+").Split(cmd, -1)
 		executable := args[0]
 		_, err := exec.LookPath(executable)
@@ -51,9 +63,8 @@ func (es *ExecutorSession) Executor(cmd string) {
 		} else {
 			go es.updateServers(cmd)
 		}
-
-		go Persist(savedCmd)
 	}
+	go Persist(savedCmd)
 }
 
 func (es *ExecutorSession) addServerFlag(args []string, executable string, cmd string) string {

@@ -1,6 +1,4 @@
 NAME := kafka-prompt
-LDFLAGS := -X 'main.version=$(VERSION)' \
-           -X 'main.revision=$(REVISION)'
 
 .DEFAULT_GOAL := all
 
@@ -12,7 +10,7 @@ gen-setting: ## Generate setting source code from json config
 
 .PHONY: build
 build: main.go
-	GO111MODULE=on go build -ldflags "$(LDFLAGS)" -o bin/kaprompt
+	GO111MODULE=on go build -o bin/kaprompt
 
 .PHONY: all
 all: gen-setting build
