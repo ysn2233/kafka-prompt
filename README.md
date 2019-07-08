@@ -9,6 +9,7 @@ This command-line tool requires kafka console client installed on the filesystem
 ## Installation
 ### Build from source
 ```
+git clone https://github.com/ysn2233/kafka-prompt.git
 cd kafka-prompt
 make
 ```
