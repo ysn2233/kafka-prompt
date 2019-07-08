@@ -1,4 +1,4 @@
-package kaprompt
+package main
 
 import (
 	"encoding/json"

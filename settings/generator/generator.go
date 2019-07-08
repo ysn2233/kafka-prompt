@@ -4,17 +4,15 @@ import (
 	"fmt"
 	"log"
 	"os"
-
-	"github.com/ysn2233/kafka-prompt/kaprompt"
 )
 
 func main() {
-	generate("../kaprompt/suggests.go")
+	generate(os.Args[1], os.Args[2])
 }
 
-func generate(filename string) {
-	config := kaprompt.NewConfig("kafka-command.json")
-	f, err := os.OpenFile(filename, os.O_WRONLY, 0644)
+func generate(settings string, filename string) {
+	config := NewConfig(settings)
+	f, err := os.OpenFile(filename, os.O_WRONLY|os.O_CREATE, 0644)
 	if err != nil {
 		log.Panic(err)
 	}
