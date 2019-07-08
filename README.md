@@ -1,5 +1,5 @@
 # Kafka-prompt
-An intertactive auto-complete kafka client usign [c-bata/go-prompt](https://github.com/c-bata/go-prompt)
+An intertactive auto-complete kafka client using [c-bata/go-prompt](https://github.com/c-bata/go-prompt)
 
 ![demo](https://github.com/ysn2233/kafka-prompt/blob/master/demo.gif)
 
