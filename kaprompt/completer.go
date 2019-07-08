@@ -35,7 +35,7 @@ func (c *Completer) Complete(d prompt.Document) []prompt.Suggest {
 
 	if len(args) <= 1 {
 		s = commandSuggest
-		s = prompt.FilterHasPrefix(s, d.GetWordBeforeCursor(), true)
+		s = prompt.FilterFuzzy(s, d.GetWordBeforeCursor(), true)
 		s = append(fileCompleter.Complete(d), s...)
 		return s
 	}
@@ -66,5 +66,5 @@ func (c *Completer) optionCompleter(args []string, hasDoubleDash bool, d prompt.
 		cmd = strings.TrimSuffix(cmd, ".sh")
 		s = optionSuggest[cmd]
 	}
-	return prompt.FilterHasPrefix(s, d.GetWordBeforeCursor(), true)
+	return prompt.FilterFuzzy(s, d.GetWordBeforeCursor(), true)
 }

@@ -37,5 +37,23 @@ func generate(settings string, filename string) {
 	}
 	f.WriteString("\t}\n")
 
+	f.WriteString("\tbsCommand = map[string]bool{\n")
+	for k, v := range config.BsCommand {
+		f.WriteString(fmt.Sprintf("\t\t\"%s\": %v,\n", k, v))
+	}
+	f.WriteString("\t}\n")
+
+	f.WriteString("\tblCommand = map[string]bool{\n")
+	for k, v := range config.BlCommand {
+		f.WriteString(fmt.Sprintf("\t\t\"%s\": %v,\n", k, v))
+	}
+	f.WriteString("\t}\n")
+
+	f.WriteString("\tzkCommand = map[string]bool{\n")
+	for k, v := range config.ZkCommand {
+		f.WriteString(fmt.Sprintf("\t\t\"%s\": %v,\n", k, v))
+	}
+	f.WriteString("\t}\n")
+
 	f.WriteString(")")
 }

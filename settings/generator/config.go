@@ -12,6 +12,9 @@ type Config struct {
 	Commands        map[string]Command
 	CommandsSuggest []prompt.Suggest
 	OptionSuggest   map[string][]prompt.Suggest
+	BsCommand       map[string]bool
+	BlCommand       map[string]bool
+	ZkCommand       map[string]bool
 }
 
 type Option struct {
@@ -32,10 +35,20 @@ func NewConfig(filename string) Config {
 		log.Panic(err)
 	}
 	c.OptionSuggest = make(map[string][]prompt.Suggest)
+	c.BsCommand = make(map[string]bool)
+	c.BlCommand = make(map[string]bool)
+	c.ZkCommand = make(map[string]bool)
 	for command, commandDetail := range c.Commands {
 		c.CommandsSuggest = append(c.CommandsSuggest, prompt.Suggest{Text: command, Description: commandDetail.Description})
 		for option, optionDetail := range commandDetail.Options {
 			c.OptionSuggest[command] = append(c.OptionSuggest[command], prompt.Suggest{Text: option, Description: optionDetail.Description})
+			if option == "--bootstrap-server" {
+				c.BsCommand[command] = true
+			} else if option == "--broker-list" {
+				c.BlCommand[command] = true
+			} else if option == "--zookeeper" {
+				c.ZkCommand[command] = true
+			}
 		}
 	}
 	return c

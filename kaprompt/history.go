@@ -2,12 +2,18 @@ package kaprompt
 
 import (
 	"bufio"
+	"log"
 	"os"
 	"os/user"
+	"sync"
 )
 
 const (
 	MAX_HISTORIES = 25
+)
+
+var (
+	mu = &sync.Mutex{}
 )
 
 func initHistoryFile() (string, error) {
@@ -23,20 +29,21 @@ func initHistoryFile() (string, error) {
 
 }
 
-func Persist(record string) error {
+func Persist(record string) {
+	mu.Lock()
+	defer mu.Unlock()
 	history_file, err := initHistoryFile()
 	if err != nil {
-		return err
+		log.Panic(err)
 	}
 	f, err := os.OpenFile(history_file, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644)
 	if err != nil {
-		return err
+		log.Panic(err)
 	}
 	defer f.Close()
 	if _, err = f.WriteString(record + "\n"); err != nil {
-		return err
+		log.Panic(err)
 	}
-	return nil
 }
 
 func LoadHistory() ([]string, error) {
